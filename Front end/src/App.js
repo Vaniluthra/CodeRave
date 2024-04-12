@@ -11,10 +11,28 @@ class App extends Component {
     super(props);
     this.state={rotate:false,translate:false,scale:false,opacity:false }
     this.changeHandler = this.changeHandler.bind(this);
+    this.generateMap = this.generateMap.bind(this); // Bind generateMap function
   }
   changeHandler(state) {
     this.setState(state);
   }
+
+  // Asynchronous function to generate the map
+  async generateMap() {
+    try {
+      const response = await fetch('/generate_map', {
+        method: 'POST',
+        body: formData // Assuming formData contains your CSV file
+      });
+      const blob = await response.blob();
+      const imageUrl = URL.createObjectURL(blob);
+      // Update state to display the processed image
+      this.setState({ processedImageUrl: imageUrl, isProcessed: true });
+    } catch (error) {
+      console.error('Error generating map:', error);
+    }
+  }
+
   render() {
     return (
       <div className="overall">
@@ -29,7 +47,8 @@ class App extends Component {
                         rotate={this.state.rotate}
                         translate={this.state.translate}
                         scale={this.state.scale}
-                        opacity={this.state.opacity} />
+                        opacity={this.state.opacity}
+                        generateMap={this.generateMap} /> {/* Pass the generateMap function as prop */}
         </div>
       </div>
     )
@@ -126,10 +145,12 @@ class Application extends React.Component {
 
   render() {
     // Display the PDF logo image only when it is processed
+    
     let processedImage = null;
     if (this.state.isProcessed) {
-      processedImage = <img src="sample output.png" alt="Processed PDF Logo" />;
+        processedImage = <img src={this.state.processedImageUrl} alt="Processed Image" />;
     }
+
   
     // If image is processed, display the reset button, else display the process button
     let actionButton = this.state.isProcessed ? (
@@ -137,7 +158,7 @@ class Application extends React.Component {
         Reset
       </button>
     ) : (
-      <button className="processButton" onClick={() => this.setState({ isProcessed: true })}>
+      <button className="processButton" onClick={() => this.props.generateMap()}>
         Click here to get the result!
       </button>
     );
