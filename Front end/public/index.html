@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Night Time Analyzer</title>
+</head>
+<body>
+  <div id="root"></div>
+
+  <h1>Night Time Analyzer</h1>
+
+  <!-- Form for uploading a CSV file -->
+  <form id="uploadForm" action="/generate_map" method="post" enctype="multipart/form-data">
+    <input type="file" name="csv_file" accept=".csv">
+    <button type="submit">Generate Map</button>
+  </form>
+
+  <!-- Placeholder for displaying the generated map image -->
+  <div id="mapContainer"></div>
+
+  <!-- JavaScript code to handle form submission -->
+  <script>
+    document.getElementById("uploadForm").addEventListener("submit", function(event) {
+      event.preventDefault(); // Prevent default form submission
+      var form = event.target;
+      var formData = new FormData(form); // Create FormData object
+
+      // Send POST request to backend
+      fetch(form.action, {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.blob()) // Convert response to blob
+      .then(blob => {
+        // Create URL for the blob
+        var url = URL.createObjectURL(blob);
+        // Set the image source to the URL
+        document.getElementById("mapContainer").innerHTML = `<img src="${url}" alt="Map">`;
+      })
+      .catch(error => console.error('Error:', error));
+    });
+  </script>
+</body>
+</html>

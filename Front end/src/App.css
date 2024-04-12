@@ -1,0 +1,76 @@
+body {
+  /* Set the background image */
+  background-image: url('F:/Vani - Reva/bg5.avif');
+  /* Set background image to cover the entire viewport */
+  background-size: cover;
+  /* Ensure the background image is fixed */
+  background-attachment: fixed;
+  /* Center the background image */
+  background-position: center;
+  /* Add some fallback background color */
+  background-color: #f8f8f8; /* Fallback color */
+  /* Set background to not repeat */
+  background-repeat: no-repeat;
+  /* Set font color to be more visible on top of the background image */
+  color: #000000; /* Dark text color */
+}
+
+.previewComponent,
+.available,
+.applied {
+  text-align: center;
+  margin-top: 20px;
+}
+
+img {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  width: 200px; /* Increase width */
+  height: auto; /* Maintain aspect ratio */
+}
+
+button {
+  margin: 5pt;
+  height: 40px;
+  width: 120px;
+  text-align: center;
+  border-radius: 10px;
+  background-color: #ccc; /* Initial background color */
+}
+
+button:hover {
+  background-color: #000; /* Background color on hover */
+  color: #fff; /* Text color on hover */
+}
+
+.hidden {
+  opacity: 0;
+}
+
+.edit {
+  text-align: center; /* Center align all content within the edit container */
+}
+
+.imgPreview {
+  margin-bottom: 20px; /* Add margin at the bottom */
+}
+
+.processButton {
+  margin: 5pt;
+  height: 50px;
+  width: 150px;
+  text-align: center;
+  border-radius: 10px;
+  margin-top: 20px; /* Add margin at the top */
+}
+
+.titleBox {
+  background-color: #ffffff; /* Black background color */
+  color: #000000; /* White text color */
+  padding: 10px; /* Add padding around the content */
+  width: 100%; /* Full width of the screen */
+  display: inline-block; /* Ensure the box wraps the content horizontally */
+  font-family: Garamond, serif; /* Use Garamond font */
+  margin-top: 0; /* Remove top margin */
+}
